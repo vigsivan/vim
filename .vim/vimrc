@@ -1,0 +1,178 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'Konfekt/FastFold'                                " Faster folding for vim (Quality of life improvement)
+Plug 'dense-analysis/ale'                              " Asynchronous linter
+Plug 'romainl/apprentice'                              " My favorite low-contrast color scheme
+Plug 'https://github.com/mg979/vim-visual-multi'       " Multiple cursors
+Plug 'turbio/bracey.vim'                               " Live html/css editing
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }    " Fuzzy Finder
+Plug 'junegunn/fzf.vim'
+Plug 'Yggdroot/indentLine'                             " Indentation Guides
+Plug 'tomtom/tcomment_vim'                             " Easy commenting-out of stuff
+Plug 'markonm/traces.vim'                              " Substitute command for live preview
+Plug 'SirVer/ultisnips'                                " Snippets
+Plug 'mbbill/undotree'                                 " Show undo tree in vim
+Plug 'tpope/vim-abolish'                               " Good substitute functionality
+Plug 'romainl/vim-cool'                                " Disable hlsearch after motion
+Plug 'tpope/vim-dispatch'                              " Asynchronous make among other things
+Plug 'junegunn/vim-easy-align'                         " Quick alignment, bound to ga
+Plug 'terryma/vim-expand-region'                       " +/- bound to expanding visual selection
+Plug 'airblade/vim-gitgutter'                          " Show git changes
+Plug 'ludovicchabant/vim-gutentags'                    " Automatically update tags files
+Plug 'michaeljsmith/vim-indent-object'                 " Indentation textobjects 'i' 
+Plug 'junegunn/vim-peekaboo'                           " Show the contents of register in real-time
+Plug 'sheerun/vim-polyglot'                            " Combines a bunch of settings for overall niceness
+Plug 'romainl/vim-qf'                                  " Nicities with the QF window
+Plug 'airblade/vim-rooter'                             " Auto-change directory to project root
+Plug 'kshenoy/vim-signature'                           " Show marks on the sidebar
+Plug 'justinmk/vim-sneak'                              " Move to any loc with 2 chars
+Plug 'tpope/vim-surround'                              " Working with pars, tags, surrounding elements
+Plug 'tpope/vim-unimpaired'                            " Previous/Next navigations with [/]
+Plug 'tpope/vim-vinegar'                               " Netrw at -
+Plug 'jeetsukumaran/vim-pythonsense'                   " Python text objects
+Plug 'vim-python/python-syntax'                        " Python syntax
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Editor Configuration
+
+runtime macros/matchit.vim     " matches if/else with % (for c-style langs only)
+" set nu | set rnu               " Relative line numbers + show current linenum
+" set nocompatible               " Don't behave like vi (not strictly needed if this file is .vimrc)
+set wildmenu                   " Show options for Ex commands
+set backspace=indent,eol,start " Backspace over everything
+set clipboard=unnamed          " Use system keyboard
+set incsearch                  " Incremental search
+set hidden                     " Keep persistent terminal
+set hlsearch                   " Stop highlighting searches
+set encoding=UTF-8             " Set encoding (useful for correctly displaying icons)
+set shiftwidth=4               " 4-space indentations
+set expandtab                  " Expand tabs to spaces
+set noswapfile                 " Don't use swap files
+set noerrorbells               " No error bells
+set vb t_vb=                   " No visual errors
+set undofile                   " Maintain undo history for each file
+set undodir=~/.vim/undodir     " Directory in which to store undo files
+set ic scs                     " case insensitive search with case-sensitive completion
+set autowrite                  " Autosave contents of buffer on make among other things
+set autoindent                 " Automatically copy indentation from the previous line
+set ruler                      " Show location in file at the bottom
+set nobackup                   " Don't create backups of files that are being edited
+set nowritebackup              " Same as above
+set confirm                    " Ask before performing destructive operations
+set ch=2                       " Increase height of command
+set ls=2                       " Always have status line
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Appearance 
+
+set termguicolors " Needed to make the colorschemes work
+syntax on         " Syntax highlighting
+let &t_ut=''      " Background erase workaround (see https://sw.kovidgoyal.net/kitty/faq.html#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim)
+colo apprentice
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" traces
+
+let g:traces_abolish_integration = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" rooter
+
+let g:rooter_silent_chdir = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" FZF
+
+" Use Escape to exit FZF
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+
+" Make FZF only take up bottom of the screen
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'border': 'horizontal' } }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" ALE
+
+let g:ale_completion_enabled = 0
+let g:ale_lint_delay=200  " slightly slower linting than default
+let g:ale_set_balloons=1  " show hover information
+let g:ale_lint_on_text_changed = "normal"
+nnoremap gd :ALEGoToDefinition<CR>
+nnoremap gr :ALEFindReferences -split<CR>
+
+au User asyncomplete_setup call asyncomplete#ale#register_source({
+    \ 'name': 'reason',
+    \ 'linter': 'flow',
+    \ })
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Easy Align
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+if !exists('g:easy_align_delimiters')
+  let g:easy_align_delimiters = {}
+endif
+" Ignore delimiters that are NOT (!) highlighted as comment
+let g:easy_align_delimiters['"'] = { 'pattern': '"', 'ignore_groups': ['!Comment'] }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Leader-based mneumonic key mappings
+
+nnoremap <SPACE> <Nop>
+let g:mapleader = "\<Space>"
+
+set timeoutlen=1000
+
+" b -> buffers
+nnoremap <silent> <leader><space> :Buffers<CR>
+nnoremap <silent> <leader>bb :Buffers<CR>
+nnoremap <silent> <leader>bn :bn<CR>
+nnoremap <silent> <leader>bp :bp<CR>
+nnoremap <silent> <leader>bd :bdelete<CR>
+nnoremap <silent> <leader>bl :BLines<CR>
+
+" g -> git
+nnoremap <silent> <leader>gg :G<CR>
+nnoremap <silent> <leader>gB :Gblame<CR>
+nnoremap <silent> <leader>gP :G<SPACE>push<CR>
+nnoremap <silent> <leader>gp :GitGutterPrevHunk<CR>
+nnoremap <silent> <leader>gn :GitGutterNextHunk<CR>
+nnoremap <silent> <leader>gs :GitGutterStageHunk<CR>
+nnoremap <silent> <leader>gu :GitGutterUndoHunk<CR>
+
+" h -> help/home
+nnoremap <silent> <leader>hh :Helptags<CR>
+nnoremap <silent> <leader>hr :e ~/.vimrc<CR>
+nnoremap <silent> <leader>hR :so ~/.vimrc<CR>
+nnoremap <silent> <leader>hp :e ~/.vim/ftplugin/python.vim<CR>
+
+" f -> find
+nnoremap <silent> <leader>. :Files<CR>
+nnoremap <silent> <leader>fF :GitFiles<CR>
+nnoremap <silent> <leader>fm :Marks<CR>
+nnoremap <silent> <leader>ff :Files<CR>
+nnoremap <silent> <leader>fg :Rg<CR>
+nnoremap <silent> <leader>fl :Lines<CR>
+nnoremap <silent> <leader>fc :Colors<CR>
+nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>fr :History<CR>
+nnoremap <silent> <leader>fk :Maps<CR>
+
+" u -> undo
+nnoremap <SPACE>u <Nop>
+nnoremap <silent> <leader>uu :UndotreeToggle<CR>:UndotreeFocus<CR>
+
+" s -> snippets
+nnoremap <silent> <leader>ss  :Snippets<CR>
+" nnoremap <silent> <leader>sc  :CocList snippets<CR>
+
+" w -> windows
+nnoremap <silent> <leader>w <C-w>
