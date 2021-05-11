@@ -6,20 +6,18 @@ call plug#begin('~/.vim/plugged')
 Plug 'Konfekt/FastFold'                                " Faster folding for vim (Quality of life improvement)
 Plug 'dense-analysis/ale'                              " Asynchronous linter
 Plug 'romainl/apprentice'                              " My favorite low-contrast color scheme
-Plug 'https://github.com/mg979/vim-visual-multi'       " Multiple cursors
 Plug 'turbio/bracey.vim'                               " Live html/css editing
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }    " Fuzzy Finder
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'                             " Indentation Guides
 Plug 'tomtom/tcomment_vim'                             " Easy commenting-out of stuff
-Plug 'markonm/traces.vim'                              " Substitute command for live preview
+Plug 'markonm/traces.vim'                              " Live preview subtitutes
 Plug 'SirVer/ultisnips'                                " Snippets
 Plug 'mbbill/undotree'                                 " Show undo tree in vim
 Plug 'tpope/vim-abolish'                               " Good substitute functionality
 Plug 'romainl/vim-cool'                                " Disable hlsearch after motion
 Plug 'tpope/vim-dispatch'                              " Asynchronous make among other things
 Plug 'junegunn/vim-easy-align'                         " Quick alignment, bound to ga
-Plug 'terryma/vim-expand-region'                       " +/- bound to expanding visual selection
 Plug 'airblade/vim-gitgutter'                          " Show git changes
 Plug 'ludovicchabant/vim-gutentags'                    " Automatically update tags files
 Plug 'michaeljsmith/vim-indent-object'                 " Indentation textobjects 'i' 
@@ -28,19 +26,16 @@ Plug 'sheerun/vim-polyglot'                            " Combines a bunch of set
 Plug 'romainl/vim-qf'                                  " Nicities with the QF window
 Plug 'airblade/vim-rooter'                             " Auto-change directory to project root
 Plug 'kshenoy/vim-signature'                           " Show marks on the sidebar
-Plug 'justinmk/vim-sneak'                              " Move to any loc with 2 chars
 Plug 'tpope/vim-surround'                              " Working with pars, tags, surrounding elements
-Plug 'tpope/vim-unimpaired'                            " Previous/Next navigations with [/]
 Plug 'tpope/vim-vinegar'                               " Netrw at -
 Plug 'jeetsukumaran/vim-pythonsense'                   " Python text objects
 Plug 'vim-python/python-syntax'                        " Python syntax
 
+call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Editor Configuration
 
 runtime macros/matchit.vim     " matches if/else with % (for c-style langs only)
-" set nu | set rnu               " Relative line numbers + show current linenum
-" set nocompatible               " Don't behave like vi (not strictly needed if this file is .vimrc)
 set wildmenu                   " Show options for Ex commands
 set backspace=indent,eol,start " Backspace over everything
 set clipboard=unnamed          " Use system keyboard
@@ -64,7 +59,6 @@ set nowritebackup              " Same as above
 set confirm                    " Ask before performing destructive operations
 set ch=2                       " Increase height of command
 set ls=2                       " Always have status line
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Appearance 
@@ -96,17 +90,12 @@ let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.4, 'yoffset': 1, 'borde
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " ALE
 
-let g:ale_completion_enabled = 0
+let g:ale_completion_enabled = 1
 let g:ale_lint_delay=200  " slightly slower linting than default
 let g:ale_set_balloons=1  " show hover information
 let g:ale_lint_on_text_changed = "normal"
 nnoremap gd :ALEGoToDefinition<CR>
 nnoremap gr :ALEFindReferences -split<CR>
-
-au User asyncomplete_setup call asyncomplete#ale#register_source({
-    \ 'name': 'reason',
-    \ 'linter': 'flow',
-    \ })
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Easy Align
@@ -150,9 +139,9 @@ nnoremap <silent> <leader>gu :GitGutterUndoHunk<CR>
 
 " h -> help/home
 nnoremap <silent> <leader>hh :Helptags<CR>
-nnoremap <silent> <leader>hr :e ~/.vimrc<CR>
-nnoremap <silent> <leader>hR :so ~/.vimrc<CR>
-nnoremap <silent> <leader>hp :e ~/.vim/ftplugin/python.vim<CR>
+" nnoremap <silent> <leader>hr :e ~/.vimrc<CR>
+" nnoremap <silent> <leader>hR :so ~/.vimrc<CR>
+" nnoremap <silent> <leader>hp :e ~/.vim/ftplugin/python.vim<CR>
 
 " f -> find
 nnoremap <silent> <leader>. :Files<CR>
