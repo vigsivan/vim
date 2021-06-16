@@ -37,3 +37,9 @@
 [submodule "pack/plugins/start/vim-vinegar"]
 	path = pack/plugins/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
+[submodule ".vim/pack/cpp/start/vim-cpp-modern"]
+	path = .vim/pack/cpp/start/vim-cpp-modern
+	url = https://github.com/bfrg/vim-cpp-modern
+[submodule ".vim/pack/plugins/start/vim-matchup"]
+	path = .vim/pack/plugins/start/vim-matchup
+	url = https://github.com/andymass/vim-matchup
