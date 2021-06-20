@@ -43,3 +43,12 @@
 [submodule ".vim/pack/plugins/start/vim-matchup"]
 	path = .vim/pack/plugins/start/vim-matchup
 	url = https://github.com/andymass/vim-matchup
+[submodule ".vim/pack/python/python-syntax"]
+	path = .vim/pack/python/python-syntax
+	url = https://github.com/vim-python/python-syntax
+[submodule ".vim/pack/plugins/start/vim-multiple-cursors"]
+	path = .vim/pack/plugins/start/vim-multiple-cursors
+	url = https://github.com/terryma/vim-multiple-cursors
+[submodule ".vim/pack/python/start/vim-pythonsense"]
+	path = .vim/pack/python/start/vim-pythonsense
+	url = https://github.com/jeetsukumaran/vim-pythonsense
