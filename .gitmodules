@@ -37,3 +37,6 @@
 [submodule ".vim/pack/python/start/vim-pythonsense"]
 	path = .vim/pack/python/start/vim-pythonsense
 	url = https://github.com/jeetsukumaran/vim-pythonsense
+[submodule ".vim/pack/plugins/start/ctrlp.vim"]
+	path = .vim/pack/plugins/start/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim
