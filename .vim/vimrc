@@ -32,7 +32,7 @@ set undofile                   " Persistent undo
 " A good set of defaults for all languages
 set expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
-colo snazzy
+colo apprentice
 hi MatchParen ctermbg=blue guibg=lightblue
 let $RTP='/Users/vigsivan/.config/vim/.vim/' " Set vim config path
 
