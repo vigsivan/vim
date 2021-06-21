@@ -1,3 +1,39 @@
+[submodule ".vim/pack/plugins/start/vim-snazzy"]
+	path = .vim/pack/plugins/start/vim-snazzy
+	url = https://github.com/connorholyday/vim-snazzy
+[submodule ".vim/pack/plugins/start/vim-vinegar"]
+	path = .vim/pack/plugins/start/vim-vinegar
+	url = https://github.com/tpope/vim-vinegar
+[submodule ".vim/pack/plugins/start/vim-unimpaired"]
+	path = .vim/pack/plugins/start/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired
+[submodule ".vim/pack/plugins/start/vim-surround"]
+	path = .vim/pack/plugins/start/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule ".vim/pack/plugins/start/FastFold"]
+	path = .vim/pack/plugins/start/FastFold
+	url = https://github.com/Konfekt/FastFold
+[submodule ".vim/pack/plugins/start/vim-cool"]
+	path = .vim/pack/plugins/start/vim-cool
+	url = https://github.com/romainl/vim-cool
+[submodule ".vim/pack/plugins/start/vim-abolish"]
+	path = .vim/pack/plugins/start/vim-abolish
+	url = https://github.com/tpope/vim-abolish
+[submodule ".vim/pack/plugins/start/traces.vim"]
+	path = .vim/pack/plugins/start/traces.vim
+	url = https://github.com/markonm/traces.vim
+[submodule ".vim/pack/plugins/start/tcomment_vim"]
+	path = .vim/pack/plugins/start/tcomment_vim
+	url = https://github.com/tomtom/tcomment_vim
+[submodule ".vim/pack/plugins/start/vim-rooter"]
+	path = .vim/pack/plugins/start/vim-rooter
+	url = https://github.com/airblade/vim-rooter
 [submodule ".vim/pack/plugins/start/xptemplate"]
 	path = .vim/pack/plugins/start/xptemplate
 	url = https://github.com/drmingdrmer/xptemplate
+[submodule ".vim/pack/python/start/python-syntax"]
+	path = .vim/pack/python/start/python-syntax
+	url = https://github.com/vim-python/python-syntax
+[submodule ".vim/pack/python/start/vim-pythonsense"]
+	path = .vim/pack/python/start/vim-pythonsense
+	url = https://github.com/jeetsukumaran/vim-pythonsense
