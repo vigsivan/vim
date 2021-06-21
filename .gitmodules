@@ -46,3 +46,6 @@
 [submodule ".vim/pack/plugins/start/vim-easy-align"]
 	path = .vim/pack/plugins/start/vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align
+[submodule ".vim/pack/plugins/start/vim-repeat"]
+	path = .vim/pack/plugins/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat
