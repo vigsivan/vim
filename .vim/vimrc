@@ -1,4 +1,15 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+" comment out if plugins don't exist
+
+call plug#begin('~/.vim/plugged')
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editor Configuration
 
 syntax on                      " Syntax highlighting
@@ -28,16 +39,27 @@ set ch=2                       " Increase height of command
 set ls=2                       " Always have status line
 set termguicolors              " Needed to make the colorschemes work
 set undofile                   " Persistent undo
+set cmdheight=2                " More space for displaying messages
+set updatetime=300             " decrease lag
+set shortmess+=c               "Don't pass messages to |ins-completion-menu|. 
 
 " A good set of defaults for all languages
 set expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
 colo apprentice
 hi MatchParen ctermbg=blue guibg=lightblue
-let $RTP='/Users/vigsivan/.config/vim/.vim/' " Set vim config path
 
 let &t_ut=''      " Background erase workaround (see https://sw.kovidgoyal.net/kitty/faq.html#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim)
 nnoremap <SPACE> <nop>
+let mapleader = "<SPACE>"
+let $RTP='/Users/vigsivan/.config/vim/.vim/' " Set vim config path
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Coc Configuration
+" Uncomment if working on system without coc
+
+let $cocfile = $RTP . 'coc.config.vim'
+so $cocfile
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Quickfix
@@ -55,22 +77,18 @@ nnoremap <silent> <SPACE>q :call ToggleQuickFix()<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Grep
 
-if executable('rg')
-    set grepprg=rg\ --vimgrep
-    set grepformat=%f:%l:%c:%m
-endif
-
-map <SPACE>G :vim //j **<left><left><left><left><left>
-map <SPACE>g :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+" if executable('rg')
+"     set grepprg=rg\ --vimgrep
+"     set grepformat=%f:%l:%c:%m
+" endif
+"
+" map <SPACE>G :vim //j **<left><left><left><left><left>
+" map <SPACE>g :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Matchit
 
 let g:loaded_matchit = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Snippets
-let g:snipMate = { 'snippet_version' : 1 }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " traces
@@ -90,30 +108,14 @@ let g:rooter_silent_chdir = 1
 let g:netrw_localrmdir='rm -r' " Use this command to delete stuff
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Jedi
-let g:jedi#environment_path = "/usr/local/Caskroom/miniconda/base/bin/python"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ctrl-P
-if executable('rg')
-  set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
-else
-  let g:ctrlp_clear_cache_on_exit = 0
-endif
-
-nnoremap <silent> <SPACE><SPACE> :CtrlPMRUFiles<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""
 " Romainl gist
 
-nnoremap <SPACE>f :g//#<Left><Left>
+nnoremap <leader>gf :g//#<Left><Left>
 
 function! CCR()
     " grab the current command-line
     let cmdline = getcmdline()
-    
+
     " does it end with '#' or 'number' or one of its abbreviations?
     if cmdline =~ '\v\C/(#|nu|num|numb|numbe|number)$'
         " press '<CR>' then ':' to enter command-line mode
@@ -126,4 +128,3 @@ endfunction
 
 " map '<CR>' in command-line mode to execute the function above
 cnoremap <expr> <CR> CCR()
-

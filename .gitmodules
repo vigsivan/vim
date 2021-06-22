@@ -28,9 +28,6 @@
 [submodule ".vim/pack/plugins/start/vim-rooter"]
 	path = .vim/pack/plugins/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter
-[submodule ".vim/pack/plugins/start/xptemplate"]
-	path = .vim/pack/plugins/start/xptemplate
-	url = https://github.com/drmingdrmer/xptemplate
 [submodule ".vim/pack/python/start/python-syntax"]
 	path = .vim/pack/python/start/python-syntax
 	url = https://github.com/vim-python/python-syntax
