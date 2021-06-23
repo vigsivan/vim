@@ -4,9 +4,9 @@
 
 call plug#begin('~/.vim/plugged')
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -58,8 +58,8 @@ let $RTP='/Users/vigsivan/.config/vim/.vim/' " Set vim config path
 " Coc Configuration
 " Uncomment if working on system without coc
 
-let $cocfile = $RTP . 'coc.config.vim'
-so $cocfile
+" let $cocfile = $RTP . 'coc.config.vim'
+" so $cocfile
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Quickfix

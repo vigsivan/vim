@@ -46,3 +46,9 @@
 [submodule ".vim/pack/plugins/start/vim-repeat"]
 	path = .vim/pack/plugins/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat
+[submodule ".vim/pack/plugins/start/vim-dispatch"]
+	path = .vim/pack/plugins/start/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch
+[submodule ".vim/pack/plugins/start/vim-qf"]
+	path = .vim/pack/plugins/start/vim-qf
+	url = https://github.com/romainl/vim-qf
