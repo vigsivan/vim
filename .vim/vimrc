@@ -1,15 +1,4 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins
-" comment out if plugins don't exist
-
-call plug#begin('~/.vim/plugged')
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
-call plug#end()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editor Configuration
 
 syntax on                      " Syntax highlighting
