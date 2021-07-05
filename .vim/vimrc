@@ -2,6 +2,7 @@
 " Editor Configuration
 
 syntax on                      " Syntax highlighting
+filetype plugin on             " Load ftplugins
 set wildmenu                   " Show options for Ex commands
 set nocompatible
 set backspace=indent,eol,start " Backspace over everything
@@ -44,13 +45,6 @@ let mapleader = "<SPACE>"
 let $RTP='/Users/vigsivan/.config/vim/.vim/' " Set vim config path
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Coc Configuration
-" Uncomment if working on system without coc
-
-" let $cocfile = $RTP . 'coc.config.vim'
-" so $cocfile
-
-""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quickfix
 
 function! ToggleQuickFix()
@@ -80,6 +74,13 @@ nnoremap <silent> <SPACE>q :call ToggleQuickFix()<cr>
 let g:loaded_matchit = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
+" YCM
+
+" if exists(':YcmCompleter')
+nnoremap K :YcmCompleter GetDoc<CR>
+" endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
 " traces
 let g:traces_abolish_integration = 1
 
@@ -99,21 +100,28 @@ let g:netrw_localrmdir='rm -r' " Use this command to delete stuff
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Romainl gist
 
-nnoremap <leader>gf :g//#<Left><Left>
-
-function! CCR()
-    " grab the current command-line
-    let cmdline = getcmdline()
-
-    " does it end with '#' or 'number' or one of its abbreviations?
-    if cmdline =~ '\v\C/(#|nu|num|numb|numbe|number)$'
-        " press '<CR>' then ':' to enter command-line mode
-        return "\<CR>:"
-    else
-        " press '<CR>'
-        return "\<CR>"
-    endif
-endfunction
-
-" map '<CR>' in command-line mode to execute the function above
-cnoremap <expr> <CR> CCR()
+" nnoremap <C-w>f :g//#<Left><Left>
+"
+" function! CCR()
+"     " grab the current command-line
+"     let cmdline = getcmdline()
+"
+"     " does it end with '#' or 'number' or one of its abbreviations?
+"     if cmdline =~ '\v\C/(#|nu|num|numb|numbe|number)$'
+"         " press '<CR>' then ':' to enter command-line mode
+"         return "\<CR>:"
+"     else
+"         " press '<CR>'
+"         return "\<CR>"
+"     endif
+" endfunction
+"
+" " map '<CR>' in command-line mode to execute the function above
+" cnoremap <expr> <CR> CCR()
+"
+" """"""""""""""""""""""""""""""""""""""""""""""""""
+" " a is the append register
+"
+" nnoremap qa qA
+" nnoremap "ay "Ay
+" nnoremap "ad "Ad
