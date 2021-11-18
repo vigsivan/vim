@@ -1,10 +1,48 @@
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-easy-align'
+Plug 'AndrewRadev/sideways.vim'
+Plug 'jpalardy/vim-slime'
+Plug 'rakr/vim-one'
+Plug 'romainl/Apprentice'
+Plug 'morhetz/gruvbox'
+Plug 'connorholyday/vim-snazzy'
+Plug 'dracula/vim'
+Plug 'Konfekt/FastFold'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'tomtom/tcomment_vim'
+Plug 'tomtom/tlib_vim'
+Plug 'markonm/traces.vim'
+Plug 'tpope/vim-abolish'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'romainl/vim-cool'
+Plug 'tpope/vim-dispatch'
+Plug 'junegunn/vim-easy-align'
+Plug 'dag/vim-fish'
+Plug 'romainl/vim-qf'
+Plug 'tpope/vim-repeat'
+Plug 'airblade/vim-rooter'
+Plug 'connorholyday/vim-snazzy'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'vim-python/python-syntax'
+Plug 'kana/vim-textobj-user'
+Plug 'bps/vim-textobj-python'
+Plug 'fladson/vim-kitty'
+Plug 'liuchengxu/vista.vim'
+call plug#end()
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Editor Configuration
 
 syntax on                      " Syntax highlighting
 filetype plugin on             " Load ftplugins
 set wildmenu                   " Show options for Ex commands
-set nocompatible
+" set nocompatible
 set backspace=indent,eol,start " Backspace over everything
 set clipboard=unnamed          " Use system keyboard
 set incsearch                  " Incremental search
@@ -36,13 +74,21 @@ set shortmess+=c               "Don't pass messages to |ins-completion-menu|.
 " A good set of defaults for all languages
 set expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
-colo apprentice
+colo dracula
 hi MatchParen ctermbg=blue guibg=lightblue
 
 let &t_ut=''      " Background erase workaround (see https://sw.kovidgoyal.net/kitty/faq.html#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim)
 nnoremap <SPACE> <nop>
 let mapleader = "<SPACE>"
 let $RTP='/Users/vigsivan/.config/vim/.vim/' " Set vim config path
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Easy Align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xnoremap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nnoremap ga <Plug>(EasyAlign)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Quickfix
@@ -55,34 +101,48 @@ function! ToggleQuickFix()
     endif
 endfunction
 
-nnoremap <silent> <SPACE>q :call ToggleQuickFix()<cr>
+nnoremap <silent> <SPACE>q <nop>
+nnoremap <silent> <SPACE>qq :call ToggleQuickFix()<cr>
+nnoremap <silent> <SPACE>qh :cc<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Grep
+" Fuzzy Finder
 
-" if executable('rg')
-"     set grepprg=rg\ --vimgrep
-"     set grepformat=%f:%l:%c:%m
-" endif
-"
-" map <SPACE>G :vim //j **<left><left><left><left><left>
-" map <SPACE>g :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Matchit
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+nnoremap <SPACE>. :Files<CR>
 
-let g:loaded_matchit = 1
+nnoremap <SPACE>f <nop>
+nnoremap <SPACE>h <nop>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" YCM
-
-" if exists(':YcmCompleter')
-nnoremap K :YcmCompleter GetDoc<CR>
-" endif
+nnoremap <SPACE>ff :GitFiles<CR>
+nnoremap <SPACE>fh :History<CR>
+nnoremap <SPACE>fg :RG<CR>
+nnoremap <SPACE>hh :Helptags<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " traces
 let g:traces_abolish_integration = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Slime
+let g:slime_python_ipython = 1
+let g:slime_target = "kitty"
+
+nnoremap <C-c>j :SlimeSendCurrentLine<CR>j
+nnoremap <C-c>i gg/import<C-c><C-c>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sideways
+nnoremap s] :SidewaysRight<CR>
+nnoremap s[ :SidewaysLeft<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight Python
@@ -98,30 +158,30 @@ let g:rooter_silent_chdir = 1
 let g:netrw_localrmdir='rm -r' " Use this command to delete stuff
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Romainl gist
+" Coc
 
-" nnoremap <C-w>f :g//#<Left><Left>
-"
-" function! CCR()
-"     " grab the current command-line
-"     let cmdline = getcmdline()
-"
-"     " does it end with '#' or 'number' or one of its abbreviations?
-"     if cmdline =~ '\v\C/(#|nu|num|numb|numbe|number)$'
-"         " press '<CR>' then ':' to enter command-line mode
-"         return "\<CR>:"
-"     else
-"         " press '<CR>'
-"         return "\<CR>"
-"     endif
-" endfunction
-"
-" " map '<CR>' in command-line mode to execute the function above
-" cnoremap <expr> <CR> CCR()
-"
-" """"""""""""""""""""""""""""""""""""""""""""""""""
-" " a is the append register
-"
-" nnoremap qa qA
-" nnoremap "ay "Ay
-" nnoremap "ad "Ad
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> <SPACE>cc :CocDiagnostics<CR>
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <leader>rn <Plug>(coc-rename)

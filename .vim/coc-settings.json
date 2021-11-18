@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "~/.config/vim/.vim/path.sh",
+    "python.linting.enabled": false
+}
